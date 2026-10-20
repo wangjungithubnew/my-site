@@ -1,5 +1,7 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
+import edgeone from '@edgeone/astro'; // 引入适配器
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  output: 'static', // 保持静态输出
+  adapter: edgeone(), // 添加适配器
+});
