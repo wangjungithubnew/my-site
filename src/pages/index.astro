@@ -1,16 +1,27 @@
 ---
+const product = {
+  name: "我的小程序",
+  version: "1.0.0"
+};
 ---
 
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{product.name}</title>
+		<style>
+			body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f9f9f9; margin: 0; }
+			.card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+			h1 { color: #333; margin-bottom: 10px; }
+			p { color: #666; font-size: 1.1em; }
+		</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class="card">
+			<h1>{product.name}</h1>
+			<p>当前最新版本：v{product.version}</p>
+			<p style="margin-top: 20px; color: #999; font-size: 0.9em;">🚀 网站自动化部署已跑通！</p>
+		</div>
 	</body>
 </html>
