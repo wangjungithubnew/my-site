@@ -31,185 +31,248 @@ try {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <title>{miniapp.name} - 极致纯粹的数字生活</title>
+        <title>{miniapp.name} - 把想法，写成现实.</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; }
-            /* 手机外框样式 */
-            .phone-mockup { border: 12px solid #1f2937; border-radius: 40px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); background-color: #f3f4f6; }
+            /* 参考 zfjwork.top 的视觉基调：浅米色背景，深灰文字，细线 */
+            :root {
+                --bg-color: #f7f7f2;
+                --text-main: #1a1a1a;
+                --text-muted: #666;
+                --border-color: #e5e5e0;
+                --accent-color: #3b82f6; /* 柔和的亮蓝色作为点缀 */
+            }
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-main);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                -webkit-font-smoothing: antialiased;
+            }
+            /* 手机外框 Mockup */
+            .phone-frame {
+                border: 10px solid #1a1a1a;
+                border-radius: 36px;
+                overflow: hidden;
+                background-color: #fff;
+                box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+                position: relative;
+            }
+            .phone-frame::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 50%; transform: translateX(-50%);
+                width: 40%; height: 20px;
+                background: #1a1a1a;
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+                z-index: 10;
+            }
+            /* 细线边框卡片 */
+            .card-line {
+                border: 1px solid var(--border-color);
+                background: #ffffff;
+                transition: all 0.3s ease;
+            }
+            .card-line:hover {
+                border-color: #d1d5db;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            }
         </style>
     </head>
-    <body class="bg-gray-50 text-gray-900 antialiased selection:bg-indigo-100 selection:text-indigo-900 min-h-screen">
+    <body class="min-h-screen selection:bg-blue-100 selection:text-blue-900">
         
-        <!-- 顶部导航 -->
-        <nav class="w-full border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-            <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xl">M</div>
-                    <span class="font-bold text-xl tracking-tight">{miniapp.name}</span>
+        <!-- 顶部导航 (参考原站 sticky header) -->
+        <header class="sticky top-0 z-50 bg-[#f7f7f2]/80 backdrop-blur-md border-b border-[#e5e5e0]">
+            <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center text-white font-bold text-lg">M</div>
+                    <span class="font-bold text-xl tracking-tight">{miniapp.name}<span class="block text-[10px] text-gray-500 font-normal tracking-widest uppercase">Studio</span></span>
                 </div>
-                <div class="flex items-center gap-6">
-                    <a href="#app-features" class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition">移动端</a>
-                    <a href="#miniapp-features" class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition">小程序</a>
-                    <a href="#download" class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition">下载</a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- 首屏 Hero 区域 -->
-        <header class="max-w-6xl mx-auto px-6 py-20 md:py-32 text-center">
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">
-                重新定义你的<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">工作方式</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10">
-                为你打造的高效、无干扰的沟通与记录体验。目前已有数十万用户选择我们。
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#download" class="inline-flex justify-center items-center px-8 py-4 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-full shadow-lg transition-transform hover:-translate-y-0.5">
-                    下载移动端 APP
-                </a>
-                <a href="#miniapp-features" class="inline-flex justify-center items-center px-8 py-4 text-base font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-full shadow-sm transition-transform hover:-translate-y-0.5">
-                    了解小程序
-                </a>
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+                    <a href="#miniapp" class="hover:text-black transition">小程序</a>
+                    <a href="#app" class="hover:text-black transition">移动端 APP</a>
+                    <a href="#download" class="px-5 py-2.5 bg-[#1a1a1a] text-white rounded-full hover:bg-gray-800 transition">获取客户端 ↗</a>
+                </nav>
             </div>
         </header>
 
-        <!-- 移动端 App 功能展示（图文交替） -->
-        <section id="app-features" class="py-24 bg-white border-y border-gray-200">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="text-center mb-20">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">移动端：强大，且极致优雅</h2>
-                    <p class="text-gray-500">专为 iOS、Android 和 HarmonyOS 深度优化</p>
+        <main class="max-w-6xl mx-auto px-6">
+            <!-- 首屏 Hero 区域 -->
+            <section class="py-24 md:py-32 flex flex-col md:flex-row items-center gap-16">
+                <div class="flex-1 space-y-8">
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        Independent Development Product
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
+                        把想法，<br>
+                        写成<span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">现实</span><span class="text-blue-600">.</span>
+                    </h1>
+                    <p class="text-lg text-gray-500 max-w-lg leading-relaxed">
+                        从一个灵感，到一款真正好用的产品。我们打造了极简、高效的数字工具，让你的工作与生活更专注。
+                    </p>
+                    <div class="flex items-center gap-6 pt-4">
+                        <a href="#download" class="px-8 py-4 bg-[#1a1a1a] text-white rounded-full font-semibold hover:bg-gray-800 transition shadow-lg shadow-gray-200">立即体验 <span class="ml-1">↗</span></a>
+                        <a href="#miniapp" class="text-sm font-semibold border-b border-black pb-1 hover:text-gray-600 transition">探索功能 ↓</a>
+                    </div>
+                </div>
+                <!-- 首屏右侧装饰性交互板 (参考原站风格) -->
+                <div class="flex-1 w-full max-w-md">
+                    <div class="aspect-square rounded-3xl bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex flex-col items-center justify-center relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                        <div class="w-32 h-32 rounded-full border border-gray-300 flex items-center justify-center mb-6 group-hover:scale-110 transition duration-700">
+                            <div class="w-24 h-24 rounded-full bg-white shadow-xl flex items-center justify-center text-4xl text-blue-500">
+                                ⌘
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-gray-500 tracking-wider">IDEA → SOMETHING REAL</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. 微信小程序功能区 -->
+            <section id="miniapp" class="py-24 border-t border-[#e5e5e0]">
+                <div class="text-center mb-16 space-y-4">
+                    <div class="text-xs font-semibold tracking-widest text-gray-400 uppercase">01 / MINI PROGRAM</div>
+                    <h2 class="text-3xl md:text-4xl font-bold">轻量，即开即用。</h2>
+                    <p class="text-gray-500">无需下载，微信扫一扫，随时随地处理事务。</p>
                 </div>
 
-                <!-- 功能 1 -->
-                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24 mb-24">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 小程序功能 1 -->
+                    <div class="card-line rounded-2xl p-6 flex flex-col h-full">
+                        <div class="w-full aspect-[4/5] bg-gray-50 rounded-xl mb-6 flex items-center justify-center text-gray-400 border border-gray-100 overflow-hidden relative">
+                            <!-- 替换截图: <img src="/images/mini-1.png" class="w-full h-full object-cover" /> -->
+                            <span class="text-sm">小程序截图 1</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">一键扫码登录</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">告别繁琐的密码输入，微信授权直接进入，让开始变得无比顺滑。</p>
+                    </div>
+                    <!-- 小程序功能 2 -->
+                    <div class="card-line rounded-2xl p-6 flex flex-col h-full md:-translate-y-4">
+                        <div class="w-full aspect-[4/5] bg-gray-50 rounded-xl mb-6 flex items-center justify-center text-gray-400 border border-gray-100 overflow-hidden relative">
+                            <span class="text-sm">小程序截图 2</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">快速分享与收藏</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">随时保存聊天中的重要文件与灵感，多端数据毫秒级同步。</p>
+                    </div>
+                    <!-- 小程序功能 3 -->
+                    <div class="card-line rounded-2xl p-6 flex flex-col h-full">
+                        <div class="w-full aspect-[4/5] bg-gray-50 rounded-xl mb-6 flex items-center justify-center text-gray-400 border border-gray-100 overflow-hidden relative">
+                            <span class="text-sm">小程序截图 3</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">消息实时提醒</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">重要动态通过微信服务通知直达，不错过任何一个关键节点。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 移动端 APP 功能区 (图文交替) -->
+            <section id="app" class="py-24 border-t border-[#e5e5e0]">
+                <div class="text-center mb-24 space-y-4">
+                    <div class="text-xs font-semibold tracking-widest text-gray-400 uppercase">02 / MOBILE APPLICATION</div>
+                    <h2 class="text-3xl md:text-4xl font-bold">强大，且极致优雅。</h2>
+                    <p class="text-gray-500">专为 iOS、Android 和 HarmonyOS 深度优化的原生体验。</p>
+                </div>
+
+                <!-- APP 功能 1 -->
+                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-24 mb-32">
                     <div class="flex-1 space-y-6">
-                        <div class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-sm font-semibold">沉浸式体验</div>
-                        <h3 class="text-3xl font-bold text-gray-900">全新设计的收件箱</h3>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl">✦</div>
+                        <h3 class="text-3xl font-bold">沉浸式工作台</h3>
                         <p class="text-lg text-gray-500 leading-relaxed">
-                            告别杂乱的未读信息。智能分类与纯净的排版，让每一次阅读都成为一种享受。支持深色模式，护眼更专注。
+                            告别杂乱的界面。智能分类与纯净的排版，让每一次操作都成为一种享受。支持深色模式，护眼更专注。
                         </p>
                     </div>
                     <div class="flex-1 flex justify-center w-full">
-                        <!-- 手机外框 + 截图占位 -->
-                        <div class="phone-mockup w-64 h-[500px] flex items-center justify-center text-gray-400">
-                            <!-- 替换真实的移动端截图: <img src="/images/app-screen1.png" class="w-full h-full object-cover" /> -->
-                            移动端截图 1
+                        <!-- 手机外框 Mockup -->
+                        <div class="phone-frame w-64 h-[520px] flex items-center justify-center text-gray-400">
+                            <!-- 替换真实截图: <img src="/images/app-1.png" class="w-full h-full object-cover" /> -->
+                            移动端功能截图 1
                         </div>
                     </div>
                 </div>
 
-                <!-- 功能 2 (反向排列) -->
-                <div class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24">
+                <!-- APP 功能 2 (反向排列) -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-16 md:gap-24">
                     <div class="flex-1 space-y-6">
-                        <div class="inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm font-semibold">极速响应</div>
-                        <h3 class="text-3xl font-bold text-gray-900">指尖上的极致性能</h3>
+                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl">⚡</div>
+                        <h3 class="text-3xl font-bold">指尖上的极致性能</h3>
                         <p class="text-lg text-gray-500 leading-relaxed">
                             原生级别的流畅动画与毫秒级的响应速度。无论是在地铁上还是弱网环境下，你的操作绝不卡顿。
                         </p>
                     </div>
                     <div class="flex-1 flex justify-center w-full">
-                        <div class="phone-mockup w-64 h-[500px] flex items-center justify-center text-gray-400">
-                            移动端截图 2
+                        <div class="phone-frame w-64 h-[520px] flex items-center justify-center text-gray-400">
+                            移动端功能截图 2
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- 3. 全平台下载区域 -->
+            <section id="download" class="py-24 border-t border-[#e5e5e0]">
+                <div class="bg-[#1a1a1a] rounded-3xl p-8 md:p-16 text-white text-center relative overflow-hidden">
+                    <!-- 背景装饰 -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+                    
+                    <div class="relative z-10 space-y-4 mb-12">
+                        <h2 class="text-3xl md:text-5xl font-bold">随时随地，保持同步</h2>
+                        <p class="text-gray-400">最新版本 v{miniapp.version}，选择你的设备开始使用。</p>
+                    </div>
+
+                    <!-- 三端下载卡片 -->
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                        <!-- iOS -->
+                        <a href={app.iosUrl} class="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/10 p-5 rounded-2xl transition backdrop-blur-sm text-left">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            <div>
+                                <div class="font-bold text-lg">App Store</div>
+                                <div class="text-xs text-gray-400">专为 iOS 打造</div>
+                            </div>
+                        </a>
+                        <!-- Android -->
+                        <a href={app.androidUrl} class="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/10 p-5 rounded-2xl transition backdrop-blur-sm text-left">
+                            <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993 0 .5511-.4483.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396z"/></svg>
+                            <div>
+                                <div class="font-bold text-lg">Android</div>
+                                <div class="text-xs text-gray-400">下载 APK 安装包</div>
+                            </div>
+                        </a>
+                        <!-- HarmonyOS -->
+                        <a href={app.harmonyUrl} class="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/10 p-5 rounded-2xl transition backdrop-blur-sm text-left">
+                            <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                            <div>
+                                <div class="font-bold text-lg">HarmonyOS</div>
+                                <div class="text-xs text-gray-400">前往华为应用市场</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 小程序码 -->
+                    <div class="relative z-10 mt-12 inline-flex items-center gap-6 bg-white/5 p-4 pr-8 rounded-2xl border border-white/10">
+                        <div class="bg-white p-2 rounded-xl">
+                            <div class="w-20 h-20 bg-gray-200 flex items-center justify-center text-gray-400 text-[10px] text-center rounded">替换<br/>小程序码</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold">微信小程序</div>
+                            <div class="text-xs text-gray-400 mt-1">扫一扫，免安装立即体验</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="border-t border-[#e5e5e0] mt-12 py-12 text-center text-sm text-gray-500">
+            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>© {new Date().getFullYear()} {miniapp.name}. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-black transition">隐私政策</a>
+                    <a href="#" class="hover:text-black transition">服务条款</a>
                 </div>
             </div>
-        </section>
-
-        <!-- 小程序功能与截图展示 -->
-        <section id="miniapp-features" class="py-24 bg-gray-50">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">小程序：轻量，即开即用</h2>
-                    <p class="text-gray-500">无需下载，微信扫一扫，随时记录灵感</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- 小程序功能卡片 1 -->
-                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 flex flex-col items-center hover:shadow-md transition">
-                        <div class="w-full h-80 bg-gray-100 rounded-2xl mb-6 flex items-center justify-center text-gray-400 border border-gray-200">
-                            小程序截图 A
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">一键扫码登录</h3>
-                        <p class="text-gray-500 text-center text-sm">无需繁琐输入密码，扫码即用。</p>
-                    </div>
-
-                    <!-- 小程序功能卡片 2 -->
-                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 flex flex-col items-center hover:shadow-md transition md:-translate-y-4">
-                        <div class="w-full h-80 bg-gray-100 rounded-2xl mb-6 flex items-center justify-center text-gray-400 border border-gray-200">
-                            小程序截图 B
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">快速收藏</h3>
-                        <p class="text-gray-500 text-center text-sm">随时保存聊天中的重要文件与信息。</p>
-                    </div>
-
-                    <!-- 小程序功能卡片 3 -->
-                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 flex flex-col items-center hover:shadow-md transition">
-                        <div class="w-full h-80 bg-gray-100 rounded-2xl mb-6 flex items-center justify-center text-gray-400 border border-gray-200">
-                            小程序截图 C
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">多端同步</h3>
-                        <p class="text-gray-500 text-center text-sm">手机端与电脑端数据毫秒级实时互通。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 全平台下载分发区域 -->
-        <section id="download" class="py-24 bg-gray-900 text-white">
-            <div class="max-w-5xl mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-5xl font-bold mb-4">随时随地，保持同步</h2>
-                    <p class="text-gray-400 text-lg">最新版本 v{miniapp.version}，选择你的设备</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- iOS 下载 -->
-                    <a href={app.iosUrl} class="flex items-center gap-4 bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-all group">
-                        <svg class="w-10 h-10 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        <div class="text-left">
-                            <div class="font-bold text-lg">App Store</div>
-                            <div class="text-sm text-gray-400">专为 iOS 打造</div>
-                        </div>
-                    </a>
-
-                    <!-- Android 下载 -->
-                    <a href={app.androidUrl} class="flex items-center gap-4 bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-all group">
-                        <svg class="w-10 h-10 text-green-500 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993 0 .5511-.4483.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396z"/></svg>
-                        <div class="text-left">
-                            <div class="font-bold text-lg">Android 版</div>
-                            <div class="text-sm text-gray-400">下载 APK 安装包</div>
-                        </div>
-                    </a>
-
-                    <!-- 鸿蒙下载 -->
-                    <a href={app.harmonyUrl} class="flex items-center gap-4 bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-all group">
-                        <svg class="w-10 h-10 text-blue-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                        <div class="text-left">
-                            <div class="font-bold text-lg">HarmonyOS</div>
-                            <div class="text-sm text-gray-400">前往华为应用市场</div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- 小程序码展示 -->
-                <div class="mt-16 bg-white/10 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-center gap-8 max-w-2xl mx-auto backdrop-blur-sm border border-gray-700">
-                    <div class="bg-white p-3 rounded-xl">
-                        <div class="w-32 h-32 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs text-center">替换为真实<br/>小程序码</div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-2xl font-bold mb-2">微信小程序</h3>
-                        <p class="text-gray-400">扫一扫，免安装立即体验</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 底部版权 -->
-        <footer class="bg-gray-900 border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
-            <p>© {new Date().getFullYear()} {miniapp.name}. 保留所有权利。</p>
         </footer>
 
     </body>
