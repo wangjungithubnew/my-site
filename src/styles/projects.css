@@ -1,0 +1,160 @@
+.project-visual.signature {
+  background: #edf1f5;
+}
+
+.project-visual.signature .device {
+  width: min(76%, 300px);
+  height: 184px;
+  padding: 13px 13px 0;
+  border: 1px solid #dce2e9;
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 10px 32px #23394d18;
+}
+
+.project-visual.mobile-tool {
+  background: #e8f0e8;
+}
+
+.project-visual.mobile-tool .device {
+  width: min(58%, 220px);
+  height: 190px;
+  padding: 12px;
+  border-bottom: 0;
+  border-radius: 23px 23px 0 0;
+}
+
+.device-bar {
+  height: 6px;
+  width: 42px;
+  border-radius: 9px;
+  background: #405146;
+  margin: 0 auto 12px;
+}
+
+.signature-mark {
+  height: 74px;
+  display: grid;
+  place-items: center;
+  color: #355d43;
+  font-size: 42px;
+  font-family: serif;
+  font-style: italic;
+  border-bottom: 1px solid #e8edf1;
+}
+
+.device-label {
+  display: block;
+  text-align: center;
+  padding: 5px;
+  color: #a1aaa5;
+  font-size: 8px;
+}
+
+.tool-chip {
+  display: block;
+  margin-top: 8px;
+  padding: 7px 4px;
+  border-radius: 6px;
+  background: #eef5ee;
+  text-align: center;
+  color: #66766d;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.save-action {
+  display: block;
+  margin-top: 7px;
+  padding: 7px;
+  border-radius: 6px;
+  background: #07a95e;
+  text-align: center;
+  color: white;
+  font-size: 9px;
+}
+
+.mobile-placeholder {
+  display: grid;
+  place-items: center;
+  height: 65px;
+  border-radius: 10px;
+  background: #eef5ee;
+  color: #365f46;
+  font-size: 12px;
+}
+
+.mobile-status {
+  display: grid;
+  place-items: center;
+  height: 84px;
+  text-align: center;
+  color: #718078;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.in-progress .project-visual {
+  position: relative;
+}
+
+.in-progress .project-visual::after {
+  content: '开发中';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 6px 10px;
+  border-radius: 99px;
+  background: white;
+  color: #53735b;
+  font-size: 10px;
+}
+
+.project-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  .project {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .project-visual {
+    height: 190px;
+    margin: -20px -20px 18px;
+  }
+
+  .project-body {
+    min-height: 0;
+  }
+
+  .project-foot {
+    margin-top: 22px;
+  }
+
+  .platform-strip {
+    margin: 0 0 20px;
+    gap: 7px;
+  }
+
+  .platform-strip span {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .thinking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .thinking-grid article {
+    padding: 18px;
+  }
+
+  .thinking-grid h3 {
+    margin: 18px 0 8px;
+  }
+}

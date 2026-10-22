@@ -1,0 +1,24 @@
+{
+  "miniapp": {
+    "name": "我爱签名",
+    "subtitle": "认真写下名字，也认真对待每一次确认。",
+    "description": "已完成的微信手写签名小程序。支持自定义颜色与笔迹粗细、撤销重写和全屏书写；生成签名后可保存到相册。",
+    "platform": "微信小程序",
+    "url": "https://zfjwork.top/tools",
+    "features": ["手写签名", "自定义颜色与笔迹粗细", "撤销与重写", "全屏书写", "保存到相册"],
+    "nameEn": "I Love Signing",
+    "subtitleEn": "A simple space for signatures that matter.",
+    "descriptionEn": "A completed WeChat mini program for handwritten signatures. Choose pen color and thickness, undo or start over, write full-screen, and save the finished signature to your photo album.",
+    "featuresEn": ["Handwritten signatures", "Color and stroke controls", "Undo and rewrite", "Full-screen canvas", "Save to photos"],
+    "status": "available",
+    "qrImage": "/miniapp-qr.png"
+  },
+  "mobileTool": {
+    "name": "时光工具助手",
+    "description": "把常用工具带到手机上，移动端版本正在开发中。",
+    "platforms": ["iOS", "Android", "HarmonyOS"],
+    "nameEn": "Time Tools",
+    "descriptionEn": "A mobile companion for everyday tools. The iOS, Android, and HarmonyOS experience is in development.",
+    "status": "in-development"
+  }
+}
