@@ -1,35 +1,106 @@
 ---
-// 去拉取你刚刚在 GitHub 上建好的数据文件
-// ⚠️ 注意：请把下面 URL 里的 wangjungithubnew 换成你自己的 GitHub 用户名！
-const response = await fetch('https://raw.githubusercontent.com/wangjungithubnew/product-data/main/products.json');
-const data = await response.json();
-const miniapp = data.miniapp;
+// 从数据源获取最新的产品信息
+let miniapp = {
+  name: "极简邮箱小程序",
+  version: "1.0.0",
+  releaseDate: "2026-10-22",
+  features: ["纯净无广告", "极速收发", "多端同步"],
+  downloadUrl: ""
+};
+let app = {
+  name: "极简邮箱 APP",
+  version: "2.0.0",
+  features: ["离线阅读", "指纹解锁"],
+  downloadUrl: "#"
+};
+
+try {
+  const response = await fetch('https://raw.githubusercontent.com/wangjungithubnew/product-data/main/products.json');
+  if (response.ok) {
+    const data = await response.json();
+    if (data.miniapp) miniapp = data.miniapp;
+    if (data.app) app = data.app;
+  }
+} catch (e) {
+  console.log("数据拉取失败，使用默认展示");
+}
 ---
 
 <html lang="zh-CN">
-	<head>
-		<meta charset="utf-8" />
-		<title>{miniapp.name}</title>
-		<style>
-			body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f6; text-align: center; padding-top: 80px; color: #333; }
-			.card { background: white; width: 400px; margin: 0 auto; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-			h1 { margin-top: 0; color: #1a1a1a; }
-			.version { background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9em; }
-			ul { list-style-type: none; padding: 0; text-align: left; margin-top: 20px; }
-			li { background: #f8fafc; margin-bottom: 8px; padding: 10px 15px; border-radius: 8px; border-left: 4px solid #38bdf8; }
-			.date { color: #888; font-size: 0.85em; margin-top: 20px; }
-		</style>
-	</head>
-	<body>
-		<div class="card">
-			<h1>{miniapp.name}</h1>
-			<div class="version">v{miniapp.version}</div>
-			
-			<ul>
-				{miniapp.features.map(feature => <li>✨ {feature}</li>)}
-			</ul>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{miniapp.name} - 专注高效与纯净</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* 针对淡蓝背景的微调 */
+            body {
+                background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); /* 淡蓝到深蓝渐变，让白字更清晰 */
+            }
+            .glass-card {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+            }
+        </style>
+    </head>
+    <body class="min-h-screen text-white font-sans flex flex-col items-center py-12 px-4 selection:bg-blue-200 selection:text-blue-900">
+        
+        <!-- 主视觉 / 产品介绍 -->
+        <main class="max-w-4xl w-full flex flex-col items-center text-center space-y-6 mt-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-sm">
+                {miniapp.name}
+            </h1>
+            <p class="text-lg md:text-xl text-blue-50 max-w-2xl font-light">
+                为你打造的高效、纯净、无干扰的沟通体验。目前已有数十万用户选择我们。
+            </p>
+            
+            <div class="flex items-center space-x-3 text-sm bg-white/20 px-4 py-2 rounded-full border border-white/20">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                </span>
+                <span>最新版本 v{miniapp.version} · 更新于 {miniapp.releaseDate}</span>
+            </div>
+        </main>
 
-			<div class="date">发布于：{miniapp.releaseDate}</div>
-		</div>
-	</body>
+        <!-- 核心功能 -->
+        <section class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+            {miniapp.features.map((feature, index) => (
+                <div class="glass-card rounded-2xl p-6 text-center hover:bg-white/20 transition duration-300">
+                    <div class="text-2xl mb-3">{['✨', '🚀', '🛡️'][index % 3]}</div>
+                    <h3 class="font-semibold text-lg text-white">{feature}</h3>
+                </div>
+            ))}
+        </section>
+
+        <!-- 下载与分发区 -->
+        <section class="max-w-4xl w-full mt-16 glass-card rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-4 text-center md:text-left">
+                <h2 class="text-2xl font-bold">立即体验</h2>
+                <p class="text-blue-50">选择你最方便的方式开始使用。</p>
+                
+                <!-- APP 下载按钮 -->
+                <a href={app.downloadUrl} class="inline-block mt-4 bg-white text-blue-600 font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition transform">
+                    下载 APP 客户端
+                </a>
+            </div>
+
+            <!-- 小程序码占位区 -->
+            <div class="bg-white p-4 rounded-2xl flex flex-col items-center shadow-lg">
+                <!-- 这里用了一个占位图，你以后把真实的微信小程序码图片放到 public 目录，替换 src 即可 -->
+                <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <span class="text-gray-500 text-sm text-center px-2">小程序码<br/>请替换图片</span>
+                </div>
+                <p class="text-blue-600 font-semibold mt-3 text-sm">微信扫码体验</p>
+            </div>
+        </section>
+
+        <!-- 底部版权 -->
+        <footer class="mt-16 text-blue-200 text-sm">
+            <p>© {new Date().getFullYear()} {miniapp.name}. 保留所有权利。</p>
+        </footer>
+
+    </body>
 </html>
